@@ -1,0 +1,115 @@
+@charset "utf-8";
+
+@media all {
+	.form-aside {float: right;width: 300px; height: 180px;}	
+	.mi-tip-ctn { padding: 6px 10px 6px 32px; padding: 7px 10px 5px 32px\9;_padding: 6px 10px 6px 32px; border:1px solid #f8fcff;}
+	.mi-tip-cue { border-color:#c9d5e3;}
+	.mi-tip { border:1px solid #c9d5e3; background-color: #e4f5ff; margin: 10px 0 0; zoom: 1; position: relative; color: #4d4d4d;}
+	.mi-tip-success .mi-tip-ctn, .mi-tip-forbidden .mi-tip-ctn, .mi-tip-cue .mi-tip-ctn, .mi-tip-warn .mi-tip-ctn, .mi-tip-error .mi-tip-ctn, .mi-tip-doubt .mi-tip-ctn, .mi-tip-wait .mi-tip-ctn, .mi-tip-close{background: url(../images/icon.png) no-repeat 0 0;}
+	.mi-tip-cue .mi-tip-ctn {background-color: #e5f5ff;background-position: -423px -567px;}
+	.ui-securitycore .ui-form-item { padding: 0 5px 15px 170px; zoom: 1; font-family: tahoma,\5b8b\4f53,\9ED1\4F53,"Hei",sans-serif;}
+	.ui-securitycore .ui-label { float: left; width: 170px; margin-left: -170px; padding-top: 3px; text-align: right; font-size: 14px;}
+	.alieditContainer{display:inline-block;*display:inline;zoom:1;width:184px;height:24px;vertical-align:bottom;position:relative}
+	.alieditContainer input.ui-input { width: 159px;}
+	.ui-securitycore .ui-input { padding: 2px 5px; height: 24px; line-height: 24px; border: 1px solid #ccc; border-top-color: #a6a6a6;}
+	.ui-securitycore .ui-form-item .ui-input { font-size: 12px; color: #595959; vertical-align: middle;}
+
+	.content-main { border:1px solid #e5e5cd; margin-top: 13px;}
+	.notice-box{color:#333;min-height:50px;_height:50px;line-height:150%;border-bottom:1px #eaead7 solid;padding-left:150px;padding-right:52px}
+	.notice-icon{width:45px;height:45px;text-indent:-999;margin-left:-50px;margin-top:-3px;display:block;background:url('https://i.alipayobjects.com/e/201310/1LAWfpdO7x.png') 0 0 no-repeat;float:left}
+	.notice-success, .notice-error, .n-warn, .n-cue, .n-help, .n-forbidden, .n-loading { padding-top: 20px; padding-bottom: 10px;}
+	.notice-success { background-color: #edffcc;}
+	.notice-success .notice-icon { background-position: -917px 1px;}
+	.notice-success h3, .notice-error h3, .n-warn h3, .n-cue h3, .n-help h3, .n-forbidden h3, .n-loading h3 { padding-top: 7px;}
+	.notice-box h3 { font-family: Microsoft YaHei,SimHei,SimSun,sans-serif; font-size: 18px; color: #000; font-weight: 400;}
+	.fad-wrapper {font-size: 12px; line-height: 1.5; padding: 10px 0 10px 150px;}
+	.notice-foot-link { padding: 10px 60px 30px 140px; margin: 10px; border-top:1px dashed #ccc; font-size: 14px;}
+	.notice-foot-link a{ color: #06b;}
+	.apply-tab .ui-tab-fund-trigger .ui-tab-fund-trigger-list { width: 154px;}
+	.apply-tab .ui-tab-fund-trigger .ui-tab-fund-trigger-item { width: 110px;}
+
+	.mi-radio, .mi-checkbox { width: 16px; vertical-align: middle; margin-top: 2px; margin-top: -2px\0;}
+	.mi-radio, .mi-checkbox { margin-top: 0;}
+	.mi-line{font-size:0;line-height:0;overflow:hidden;border:0;height:1px;background-color:#CCC;display:block;margin:5px 0}
+	.mi-line-dashed{height:0;background-color:transparent;border-bottom:1px dashed #CCC}
+	.mi-line-dot{background:transparent url("https://i.alipayobjects.com/e/201205/2mWxr1oBG5.png") repeat-x 0 0}
+
+	.tip-faq{background:none repeat scroll 0 0 transparent;border-top:1px solid #f2f2f2;line-height:150%;margin-top:40px;padding:17px 20px 7px}
+	.tip-faq h3{color:#000;font-size:14px}
+	.tip-faq dl{margin-top:10px}
+	.tip-faq dd,.tip-faq dt{padding-left:1em}
+	.tip-faq dt{background:url("https://i.alipayobjects.com/e/201310/1LAWfpdO7x.png") no-repeat scroll 4px -534px transparent;float:left;font-weight:bold}
+	.tip-faq dd{clear:both;margin-bottom:14px}
+	.tip-faq-link{margin:20px 0}
+	.tip-voice{background:none repeat scroll 0 0 #f9f9f9;border:1px solid #d4d4d4;overflow:hidden;width:532px}
+
+	.tip-faq .fn-right{display:none}
+	.tip-faq{padding:17px 20px 7px 20px;margin-top:40px;line-height:150%;background:0;border-top:1px solid #f2f2f2}
+	.tip-faq h3{font-size:14px;color:#000}
+	.tip-faq dl{margin-top:10px}
+	.tip-faq dd,.tip-faq dt{padding-left:1em}
+	.tip-faq dt{float:left;font-weight:bold;background:transparent url('https://img.alipay.com/pa/frame/v2/ico-pa.png') 4px -534px no-repeat}
+	.tip-faq dd{clear:both;margin-bottom:14px}
+	.tip-faq-link{margin:20px 0}
+	.content .tip-faq h3{height:auto;border-bottom:0;padding-bottom:0;padding-left:0;font-weight:bold;font-size:15px}
+	.content .tip-faq dl{padding-left:0}
+	.content .tip-faq dt{color:#4d4d4d;font-size:12px;margin:0}
+	.content .tip-faq .tip-faq-link{padding-left:0}
+	.content .tip-faq .tip-faq-link a{font-size:12px;color: #06b;}
+	.content .tip-faq .com-search{padding-left:0}
+}	
+
+
+.main {width: 990px; margin: 0px auto; font-family:  tahoma, arial, 宋体;}
+.form-container { margin-top: 20px;}
+.form-container-new { border:3px solid #a8da5d; padding: 20px;}
+.form-container-new .form-container-head { background: none repeat scroll 0 0 #edfed1;}
+.form-container-head .form-container-href { padding: 20px; color: #06b;}
+.form-container-conon { padding: 20px 100px; background: url(../images/defend.png) no-repeat scroll 40px 10px transparent; color: #7fb030;}
+.form-container .form-container-title, .form-container .mi-form { padding: 0 30px;}
+.form-container-title .mi-tip { margin-bottom: 20px;}
+.mi-button{display:inline-block;padding:0;text-decoration:none!important;text-align:center;*zoom:1;*display:inline;overflow:visible;vertical-align:middle;position:relative}
+.mi-button-text { cursor: pointer; border: 0; float: left;}
+.mi-button-sblue, .mi-button-swhite, .mi-button-sorange, .mi-button-sblue-hover, .mi-button-swhite-hover, .mi-button-sorange-hover, .mi-button-sblue-disabled, .mi-button-swhite-disabled, .mi-button-sorange-disabled, .mi-button-mblue, .mi-button-mwhite, .mi-button-morange, .mi-button-mblue-hover, .mi-button-mwhite-hover, .mi-button-morange-hover, .mi-button-mblue-disabled, .mi-button-mwhite-disabled, .mi-button-morange-disabled, .mi-button-lblue, .mi-button-lwhite, .mi-button-lorange, .mi-button-lblue-hover, .mi-button-lwhite-hover, .mi-button-lorange-hover, .mi-button-lblue-disabled, .mi-button-lwhite-disabled, .mi-button-lorange-disabled, .mi-button-text { padding: 0 0 0 4px; background: url(../images/btn.png) no-repeat 0 0}
+.mi-button-lorange { background-position: 0 -532px;}
+.mi-button-lblue .mi-button-text, .mi-button-lorange .mi-button-text, .mi-button-lwhite .mi-button-text { height: 34px; color: #fff; font: 700 14px/1.4 \5b8b\4f53,\9ED1\4F53,verdana;}
+.mi-button-lorange .mi-button-text { background-position: right -532px;}
+.mi-button input.mi-button-text, .mi-button button.mi-button-text { overflow: visible; border:0; float: left; padding: 0px 18px 0px 15px;  } 
+.mi-form-item { padding: 0 0 20px 170px; margin: 0; font-size: 14px;}
+.mi-form-item a { color: #06b;}
+.mi-label{padding:3px 0 6px;padding:5px 0 0\9;*padding:4px 0 0;_padding:3px 0 0;width:170px;float:left;*margin-top:1px;margin-left:-170px;vertical-align:middle;text-align:right;color:#4d4d4d;font-size:14px;position:relative}
+.mi-form-text, .mi-form-link, .sl-checkcode-link { display: -moz-inline-stack; display: inline-block;}
+.mi-form-explain { color: #a6a6a6; padding: 3px 0 0;  padding-top: 5px\9; _padding-top:3px;_margin-left:3px; font-size: 12px;}
+.mi-input,.mi-textarea,.mi-form .mi-securitycore .mi-checkcode-input{border:1px solid #CCC;border-top-color:#a6a6a6;color:#4d4d4d;font:normal 12px tahoma,arial,\5b8b\4f53;padding:7px 4px;padding:8px 4px 5px\9;*padding:8px 4px 5px;_padding:7px 4px 6px;vertical-align:top;width:210px}
+.mi-input-fund { width: 162px;}
+.cardNoWrapper .mi-form-text, .cardNoWrapper .mi-form-link { vertical-align: top; font-size: 14px; padding: 3px 0 0; zoom: 1; line-height: 21px;}
+.ui-tab-fund { border-bottom: 2px solid #b3b3b3; margin: 20px 0;}
+.ui-tab-fund .ui-tab-fund-trigger { margin-left: 10px;}
+.ui-tab-fund-trigger .ui-tab-fund-trigger-list { border-left: 2px solid #f5f5f5; border-right: 2px solid #f5f5f5; border-top:2px solid #f5f5f5; float: left; height: 33px; margin-left: 10px; width: 104px;}
+.ui-tab-fund-trigger .ui-tab-fund-trigger-item{display:inline-block;font-size:14px;height:31px;line-height:33px;padding-left:20px;padding-right:20px;position:relative;border-left:2px solid #b3b3b3;border-right:2px solid #b3b3b3;border-top:2px solid #b3b3b3;text-align:center;width:60px;_top:2px;background-color:#f5f5f5}
+.ui-tab-fund .ui-tab-fund-trigger .ui-tab-fund-trigger-item-current{background:none repeat scroll 0 0 #FFF;cursor:pointer;font-weight:bolder;height:33px}
+.form-aside { padding: 0 20px 0 30px; width: 210px; border-left:1px solid #eee; color: #6a7880;}
+.form-aside-title { font-weight: 700;}
+.form-aside-icon { margin-top: 9px;}
+.form-aside-orange { color: #ff6600;}
+.alieditContainer { display: inline-block; zoom: 1; vertical-align: middle;}
+.ui-form-other a { color: #06b;}
+.notice-icon {display: block; float: left; height: 45px; margin-left: -50px; margin-top: -3px; width: 45px;}
+.notice-success .notice-icon {background: url(../images/icontot.png) no-repeat scroll -917px 1px transparent;}
+
+.card-item { background: none repeat scroll 0 0 #FCFCFD; border:1px solid #ECECEC; cursor:pointer; height: 60px; padding: 7px 6px; width: 376px; z-index: 100; margin-bottom: 10px;}
+.card-item-radio { padding-left: 4px; width: 20px; padding-top: 8px;}
+.card-item-logo { color: #030303; font-size: 14px; height: 30px; line-height: 30px; margin-left: 5px; padding: 1px 0; width: 230px; margin-right: 5px;}
+.card-item-num { color: #030303; font-size: 14px; height: 30px; margin-left: 5px; padding: 1px 0; width: 100px; margin-right: 5px;}
+.card-vul-info { margin-left: 30px; font-size: 12px; color: #959595; height: 30px; line-height: 30px; width: 240px;}
+.card-item-amount { line-height: 18px; color: #9A9A9A; font-size: 12px; height: 30px; line-height: 30px; vertical-align: middle; margin-left: 20px;}
+.icon {display: block; float: left; overflow: hidden;}
+.icon-bank { height: 15px; margin: 8px 3px 7px 0; width: 25px;}
+.num { color: #363C47; display: inline-block; line-height: 30px; padding-left: 10px;}
+.katong { background: none repeat scroll 0 0 #73A6CB; border:1px 1px 1px 1px; color: #FEFEFE; display: inline-block; font-size: 12px; height: 16px; line-height: 14px; margin: 8px 0 13px 5px; padding: 0 4px 0 2px;vertical-align:middle; font-style: normal;}
+.mi-line-dashed { background-color: transparent; border-bottom: 1px dashed #CCCCCC; height: 0; margin-left: 30px; width: 330px;}
+a.ico-expand-add { background: url(../images/plus-err.png) no-repeat scroll -8px -7px transparent; padding-left: 15px; font-size: 12px;}
+a.ico-expand-arrow, a.ico-expand-arrow-up { background: url(../images/arrowicon.png) no-repeat; padding-left: 15px;}
+a.ico-expand-arrow { background-position: left -119px; font-size: 12px;}
+#J-addComments {font-size: 12px; margin-left: 20px;}
+

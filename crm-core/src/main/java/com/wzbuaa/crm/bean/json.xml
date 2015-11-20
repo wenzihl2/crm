@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsonMap>
+	<json id="json_dept_list">
+		[{"name": "id"},{"name": "name"},{"name": "parent.id", "vname": "pid"}]
+	</json>
+	<json id="category_list">
+		[{"name": "id"},{"name": "name"},{"name": "priority"}, {"name": "parent.id", "vname":"pid"}]
+	</json>
+	<json id="product_search_list">
+		[{"name": "id"},{"name": "name"},{"name": "no"},{"name": "fullname"},{"name": "purchase_price"},
+		{"name": "produce_price"}, {"name": "unit.name","vname":"unit"},{"name": "sale_price"},{"name": "specstr"}]
+	</json>
+	<json id="goods_search_list">
+		[{"name": "id"},{"name": "name"},{"name": "fullname"}]
+	</json>
+	<json id="json_product_detail">
+		[{"name": "id"},{"name": "name"},{"name": "no"},{"name": "fullname"},{"name": "unit"},{"name": "specstr"}]
+	</json>
+	<json id="json_supply_list">
+		[{"name": "id"},{"name": "name"},{"name": "fullname"}]
+	</json>
+	<json id="json_depot_list">
+		[{"name": "id"},{"name": "name"},{"name": "fullname"},{"name": "depotNo"}]
+	</json>
+	<json id="company_search_list">
+		[{"name": "id"},{"name": "name"}]
+	</json>
+	<json id="json_user_list">
+		[{"name": "real_name","vname":"name"},{"name": "id"}]
+	</json>
+</jsonMap>

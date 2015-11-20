@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings> 
+	<description>配置文件</description>  
+	<setting name="name" value="后台管理系统"/>  
+	<setting name="logo" value="/upload/image/logo.jpg"/>  
+	<setting name="company" value="进销存"/>  
+	<setting name="mobile" value=""/>
+	<setting name="contextPath" value=""/>
+	<setting name="port" value="8080"/>
+	<setting name="domain" value="192.168.1.88"/>
+	<setting name="address" value="预订系统"/>  
+	<setting name="phone" value="4000-111-898"/> 
+	<setting name="isSiteEnabled" value="true"/>
+	<setting name="isLoginFailureLock" value="true"/>  
+	<setting name="loginFailureLockCount" value="5"/>  
+	<setting name="loginFailureLockTime" value="5"/>
+	<setting name="uploadMediaExtension" value=""/>  
+	<setting name="uploadFlashExtension" value=""/>  
+	<setting name="uploadImageExtension" value="JPG,JPGE,BMP,GIF,PNG,jpg,jpge,bmp,gif,png"/>  
+	<setting name="uploadFileExtension" value="xlsx,xls"/>
+	<setting name="imageUploadPath" value="/upload/deal/image/${.now?string('yyyyMM')}/${(.now?string('dd')?number/7)?int}/"/>  
+	<setting name="flashUploadPath" value="/upload/flash/${.now?string('yyyyMM')}/"/>  
+	<setting name="mediaUploadPath" value="/upload/media/${.now?string('yyyyMM')}/"/>  
+	<setting name="fileUploadPath" value="/upload/file/${.now?string('yyyyMM')}/"/>
+	<setting name="zipCode" value="400000"/>
+	<setting name="owner_email" value="admin@shopxx.net"/>  
+	<setting name="certtext" value="浙ICP备12029244号-2"/>
+	<!--
+	<setting name="smtpFromMail" value="691030669@qq.com"/>  
+	<setting name="smtpHost" value="smtp.exmail.qq.com"/>  
+	<setting name="smtpPort" value="25"/>  
+	<setting name="smtpUsername" value="691030669@qq.com"/>  
+	<setting name="smtpPassword" value="zhzz2014"/>
+	-->
+	<setting name="smtpFromMail" value="bksheng365@sohu.com"/>  
+	<setting name="smtpHost" value="smtp.sohu.com"/>  
+	<setting name="smtpPort" value="25"/>  
+	<setting name="smtpUsername" value="bksheng365@sohu.com"/>  
+	<setting name="smtpPassword" value="bangkesheng"/>  
+	<setting name="cookiePath" value="/"/>  
+	<setting name="cookieDomain" value=""/>
+	<setting name="shopTheme" value="shop"/>
+</settings>

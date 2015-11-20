@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	<!--文件上传插件桩 -->
+	<bean id="storagePluginBundle" class="com.wzbuaa.crm.plugin.storage.StoragePluginBundle" />
+
+	 <!-- 本地文件上传插件 -->
+	 <bean id="FilePlugin" class="com.wzbuaa.crm.plugin.storage.file.FilePlugin"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="storagePluginBundle" />
+			</list>
+		</property>
+	 </bean>
+	 
+	 <!--==================================第三方支付接口插件==============================================-->
+	<!--支付插件桩 -->
+	<bean id="paymentPluginBundle" class="com.wzbuaa.crm.plugin.payment.PaymentPluginBundle" />	
+ 	
+ 	<!-- 支付宝担保交易接口 -->
+ 	<bean id="alipayAssurePlugin" class="com.wzbuaa.crm.plugin.payment.alipay.AlipayAssurePlugin"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="paymentPluginBundle" />
+			</list>
+		</property>
+ 	</bean>
+ 	
+ 	<!-- 支付宝担保交易接口 -->
+ 	<bean id="alipayDirectPlugin" class="com.wzbuaa.crm.plugin.payment.alipay.AlipayDirectPlugin"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="paymentPluginBundle" />
+			</list>
+		</property>
+ 	</bean>
+	<!--==================================前端转换插件==============================================-->
+	<!--转换插件桩 -->
+	<bean id="dataConvertPluginBundle" class="com.wzbuaa.crm.plugin.SysDataConvert.DataConvertPluginBundle" />
+	<!-- 用户转换插件 -->
+	<bean id="userConvertPlugin" class="com.wzbuaa.crm.plugin.SysDataConvert.UserConvertPlugin"
+		lazy-init="false"> 
+		<property name="bundleList"> 
+			<list> 
+				<ref bean="dataConvertPluginBundle" />
+			</list> 
+		</property>
+	</bean>
+	<!-- 工作职位转换插件 -->
+	<bean id="jobConvertPlugin" class="com.wzbuaa.crm.plugin.SysDataConvert.JobConvertPlugin"
+		lazy-init="false"> 
+		<property name="bundleList"> 
+			<list> 
+				<ref bean="dataConvertPluginBundle" />
+			</list> 
+		</property>
+	</bean>
+	<!-- 分组转换插件 -->
+	<bean id="groupConvertPlugin" class="com.wzbuaa.crm.plugin.SysDataConvert.GroupConvertPlugin"
+		lazy-init="false"> 
+		<property name="bundleList"> 
+			<list> 
+				<ref bean="dataConvertPluginBundle" />
+			</list> 
+		</property>
+	</bean>
+	<!-- 角色转换插件 -->
+	<bean id="roleConvertPlugin" class="com.wzbuaa.crm.plugin.SysDataConvert.RoleConvertPlugin"
+		lazy-init="false"> 
+		<property name="bundleList"> 
+			<list> 
+				<ref bean="dataConvertPluginBundle" />
+			</list> 
+		</property>
+	</bean>
+	<!-- 组织机构超转换插件 -->
+	<bean id="deptConvertPlugin" class="com.wzbuaa.crm.plugin.SysDataConvert.DeptConvertPlugin"
+		lazy-init="false"> 
+		<property name="bundleList"> 
+			<list> 
+				<ref bean="dataConvertPluginBundle" />
+			</list> 
+		</property>
+	</bean>
+	<!-- 组织机构树状结构转换插件 -->
+	<bean id="deptTreeConvertPlugin" class="com.wzbuaa.crm.plugin.SysDataConvert.DeptTreeConvertPlugin"
+		lazy-init="false"> 
+		<property name="bundleList"> 
+			<list> 
+				<ref bean="dataConvertPluginBundle" />
+			</list> 
+		</property>
+	</bean>
+	<!-- 职务树状结构转换插件 -->
+	<bean id="jobTreeConvertPlugin" class="com.wzbuaa.crm.plugin.SysDataConvert.JobTreeConvertPlugin"
+		lazy-init="false"> 
+		<property name="bundleList"> 
+			<list> 
+				<ref bean="dataConvertPluginBundle" />
+			</list> 
+		</property>
+	</bean>
+	<!--==================================校验插件==============================================-->
+	<!--校验插件桩 -->
+	<bean id="validationBundle" class="framework.validation.ValidationBundle" />
+	
+	<!-- 正则校验 -->
+ 	<bean id="regexFieldValidate" class="framework.validation.RegexFieldValidate"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="validationBundle" />
+			</list>
+		</property>
+ 	</bean>
+	<!-- 对象非空校验 -->
+ 	<bean id="requiredFieldValidate" class="framework.validation.RequiredFieldValidate"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="validationBundle" />
+			</list>
+		</property>
+ 	</bean>
+	<!-- 字符串非空校验 -->
+ 	<bean id="requiredStringValidate" class="framework.validation.RequiredStringValidate"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="validationBundle" />
+			</list>
+		</property>
+ 	</bean>
+	<!-- 数值区间校验 -->
+ 	<bean id="intRangeValidate" class="framework.validation.IntRangeValidate"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="validationBundle" />
+			</list>
+		</property>
+ 	</bean>
+	<!-- 字符串长度校验 -->
+ 	<bean id="stringLengthValidate" class="framework.validation.StringLengthValidate"
+		lazy-init="false">
+		<property name="bundleList">
+			<list>
+				<ref bean="validationBundle" />
+			</list>
+		</property>
+ 	</bean>
+</beans>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+	
+	<context:property-placeholder location="classpath*:/crm.properties" ignore-resource-not-found="true" ignore-unresolvable="true" />
+	<!-- 数据源 -->
+    <!--see https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!-- 基本属性 url、user、password -->
+        <property name="driverClassName" value="com.p6spy.engine.spy.P6SpyDriver" />
+        <property name="url" value="jdbc:mysql://192.168.2.218:3306/sm_crm?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="zhzz2014"/>
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="${druid.initialSize}"/>
+        <property name="minIdle" value="${druid.minIdle}"/>
+        <property name="maxActive" value="${druid.maxActive}"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${druid.maxWait}"/>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+
+        <property name="validationQuery" value="${druid.validationQuery}" />
+        <property name="testWhileIdle" value="${druid.testWhileIdle}" />
+        <property name="testOnBorrow" value="${druid.testOnBorrow}" />
+        <property name="testOnReturn" value="${druid.testOnReturn}" />
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小  如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。-->
+        <property name="poolPreparedStatements" value="${druid.poolPreparedStatements}" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${druid.maxPoolPreparedStatementPerConnectionSize}" />
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="${druid.filters}" />
+    </bean>
+
+    <bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <property name="targetDataSource" ref="dataSource"/>
+    </bean>
+	
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSourceProxy" />
+		<property name="packagesToScan" value="com.wzbuaa.crm.domain" />
+		<property name="persistenceUnitName" value="${jpa.persistenceUnitName}" />
+		<property name="persistenceProvider">
+            <bean class="org.hibernate.ejb.HibernatePersistence"/>
+        </property>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="generateDdl" value="false"/>
+                <property name="database" value="MYSQL"/>
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+                <property name="showSql" value="false"/>
+			</bean>
+		</property>
+		<property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+        </property>
+		<property name="jpaPropertyMap">
+            <map>
+                <!-- 使用自定义的validator进行jsr303验证 -->
+                <entry key="javax.persistence.validation.factory" value-ref="validator"/>
+                <!-- jsr303验证模式 因为其要么验证 要么不验证 不能按照规则走 所以此处禁用 -->
+                <!-- #http://docs.jboss.org/hibernate/entitymanager/3.6/reference/en/html/configuration.html -->
+                <entry key="javax.persistence.validation.mode" value="NONE"/>
+
+                <!-- 只扫描class文件，不扫描hbm，默认两个都搜索 -->
+                <entry key="hibernate.archive.autodetection" value="class"/>
+                <!-- 不检查@NamedQuery -->
+                <entry key="hibernate.query.startup_check" value="false"/>
+				<entry key="hibernate.hbm2ddl.auto" value="update"/>
+				<entry key="hibernate.jdbc.batch_size" value="1000"/>
+                <entry key="hibernate.query.substitutions" value="${hibernate.query.substitutions}"/>
+                <entry key="hibernate.default_batch_fetch_size" value="${hibernate.default_batch_fetch_size}"/>
+                <entry key="hibernate.max_fetch_depth" value="${hibernate.max_fetch_depth}"/>
+                <entry key="hibernate.generate_statistics" value="${hibernate.generate_statistics}"/>
+                <entry key="hibernate.bytecode.use_reflection_optimizer" value="${hibernate.bytecode.use_reflection_optimizer}"/>
+                <entry key="hibernate.cache.use_second_level_cache" value="${hibernate.cache.use_second_level_cache}"/>
+                <entry key="hibernate.cache.use_query_cache" value="${hibernate.cache.use_query_cache}"/>
+                <entry key="hibernate.cache.region.factory_class" value="${hibernate.cache.region.factory_class}"/>
+                <entry key="net.sf.ehcache.configurationResourceName" value="${net.sf.ehcache.configurationResourceName}"/>
+                <entry key="hibernate.cache.use_structured_entries" value="${hibernate.cache.use_structured_entries}"/>
+            </map>
+        </property>
+	</bean>
+	
+	<!-- 开启AOP监听 只对当前配置文件有效 -->
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+	
+	<!--
+        spring data jpa repository
+        base-package:扫描的包
+        repository-impl-postfix:仓库自定义实现类型的后缀  自动扫描并添加到接口的实现
+        factory-class 仓库接口的实现工厂
+    -->
+    <jpa:repositories
+            base-package="com.wzbuaa.crm.repository"
+            repository-impl-postfix="Impl"
+            factory-class="com.wzbuaa.crm.repository.support.SimpleBaseRepositoryFactoryBean"
+            entity-manager-factory-ref="entityManagerFactory"
+            transaction-manager-ref="transactionManager">
+		
+    </jpa:repositories>
+	<jpa:auditing auditor-aware-ref="frontUserAuditorAware" />
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到-->
+            <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="count*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="list*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="search*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config expose-proxy="true" proxy-target-class="true">
+        <!-- 只对业务逻辑层实施事务 -->
+        <aop:pointcut id="txPointcut" expression="execution(* com.wzbuaa.crm.service..*+.*(..))"/>
+        <aop:advisor id="txAdvisor" advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+	
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="java.lang.System" />
+		<property name="targetMethod" value="setProperty" />
+		<property name="arguments">
+			<list>
+				<value>system.project_name</value>
+				<value>${system.project_name}</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    
+	<!-- 设置需要进行Spring注解扫描的类包 -->
+	<context:component-scan base-package="
+		com.wzbuaa.crm.service, com.wzbuaa.crm.security, com.wzbuaa.crm.filter,
+		com.wzbuaa.crm.cache,
+		com.wzbuaa.crm.controller.method, com.wzbuaa.crm.controller.directive">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="cacheSeconds" value="${message.cache_seconds}" />
+		<property name="useCodeAsDefaultMessage" value="true" />
+		<property name="basenames">
+			<list>
+				<value>${message.common_path}</value>
+				<value>${message.admin_path}</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!--
+	<bean id="imageCaptchaService" class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+		<property name="captchaEngine">
+			<bean class="com.wzbuaa.crm.security.JCaptchaEngine" />
+		</property>
+		<property name="minGuarantedStorageDelayInSeconds" value="3600" />
+	</bean>
+	 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.FixedLocaleResolver">
+		<property name="defaultLocale" value="${locale}" />
+	</bean>
+	<!-- 类型转换及数据格式化 -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"/>
+	
+	<!-- 直接把id转换为entity 必须非lazy否则无法注册
+    <bean id="domainClassConverter" class="org.springframework.data.repository.support.DomainClassConverter">
+        <constructor-arg ref="conversionService"/>
+    </bean>
+	-->
+    <!--设置查询字符串转换器的conversion service-->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod"
+                  value="framework.entity.search.util.SearchableConvertUtils.setConversionService"/>
+        <property name="arguments" ref="conversionService"/>
+    </bean>
+	
+	<!--设置BaseRepositoryImplHelper辅助类所需的entityManagerFactory-->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="com.wzbuaa.crm.repository.RepositoryHelper.setEntityManagerFactory"/>
+        <property name="arguments" ref="entityManagerFactory"/>
+    </bean>
+    
+    <!--设置BaseRepositoryImplHelper辅助类所需的entityManagerFactory-->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="com.wzbuaa.crm.util.TokenHelper.setRedisCacheClient"/>
+        <property name="arguments" ref="redisCache"/>
+    </bean>
+	
+	<!-- freemarker 相关配置 begin -->
+	<bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPaths" value="${template.loader_path}" />
+		<property name="freemarkerSettings">
+            <props>
+				<prop key="defaultEncoding">${template.encoding}</prop>
+				<prop key="url_escaping_charset">${url_escaping_charset}</prop>
+				<prop key="locale">${locale}</prop>
+				<prop key="template_update_delay">${template.update_delay}</prop>
+				<prop key="tag_syntax">auto_detect</prop>
+				<prop key="whitespace_stripping">true</prop>
+				<prop key="classic_compatible">true</prop>
+				<prop key="number_format">${template.number_format}</prop>
+				<prop key="boolean_format">${template.boolean_format}</prop>
+				<prop key="datetime_format">${template.datetime_format}</prop>
+				<prop key="date_format">${template.date_format}</prop>
+				<prop key="time_format">${template.time_format}</prop>
+				<!--
+				<prop key="auto_import">${template.auto_import}</prop>
+				-->
+				<prop key="object_wrapper">freemarker.ext.beans.BeansWrapper</prop>
+			</props>
+        </property>
+        <property name="freemarkerVariables">
+			<map>
+				<entry key="base" value="#{servletContext.contextPath}" />
+				<entry key="locale" value="${locale}" />
+				<entry key="setting" value="#{T(com.wzbuaa.crm.util.SettingUtils).get()}" />
+				<entry key="message" value-ref="messageMethod" />
+				<entry key="abbreviate" value-ref="abbreviateMethod" />
+				<entry key="flash_message" value-ref="flashMessageDirective" />
+				<entry key="BackURL" value-ref="backUrlDirectiveModel" />
+				
+				<!-- 商品分类相关插件 -->
+				<entry key="shop_advert_list" value-ref="advertDirective" />
+				<!-- 商品分类相关插件 -->
+				<entry key="shop_goodsCategoryTop_list" value-ref="categoryTopListDirective" />
+				<entry key="shop_goodsCategoryTree_list" value-ref="categoryTreeDirective" />
+				<!-- 导航相关插件 -->
+				<entry key="shop_navigation_list" value-ref="navigationDirective" />
+				<entry key="shop_navigationTop_list" value-ref="navigationTopListDirective" />
+				
+				<!-- 文章相关插件 -->
+				<entry key="shop_article_list" value-ref="articleDirective" />
+				<entry key="shop_articleCategory_list" value-ref="articleCategoryDirective" />
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="freemarkerStaticModelsProps" 
+        class="org.springframework.beans.factory.config.PropertiesFactoryBean"> 
+        <property name="location" value="classpath:freemarkerstatic.properties" /> 
+    </bean>
+    
+    <bean id="freemarkerStaticModels" 
+        class="framework.freemarker.FreemarkerStaticModels" factory-method="getInstance">
+        <property name="staticModels" ref="freemarkerStaticModelsProps"/>
+    </bean>
+	
+    <!-- freemarker 相关配置 end -->
+    <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+				<prop key="mail.smtp.timeout">${mail.smtp.timeout}</prop>
+				<prop key="mail.smtp.starttls.enable">${mail.smtp.starttls.enable}</prop>
+			</props>
+		</property>
+	</bean>
+	
+    <!-- spring线程池-->
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="${task.core_pool_size}" />
+		<property name="maxPoolSize" value="${task.max_pool_size}" />
+		<property name="queueCapacity" value="${task.queue_capacity}" />
+		<property name="keepAliveSeconds" value="${task.keep_alive_seconds}" />
+	</bean>
+	
+	<import resource="spring-config-cache.xml"/>
+	<import resource="spring-config-task.xml"/>
+	<import resource="pluginContext.xml"/>
+	<import resource="spring-config-shiro.xml"/>
+</beans>

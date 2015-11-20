@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
+             http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+    default-lazy-init="true">
+    
+    <context:property-placeholder location="classpath*:/crm.properties" ignore-resource-not-found="true" ignore-unresolvable="true" />
+    <mvc:annotation-driven validator="validator">
+    	<mvc:argument-resolvers>
+    	   <bean class="framework.spring.mvc.method.annotation.PageableMethodArgumentResolver"/>
+    	   <bean class="framework.spring.mvc.method.annotation.SearchableMethodArgumentResolver"/>
+           <bean class="framework.spring.mvc.method.annotation.FormModelMethodArgumentResolver"/>
+           <bean class="framework.spring.mvc.method.annotation.RequestJsonParamMethodArgumentResolver"/> 
+           <bean class="framework.spring.mvc.method.annotation.CurrentUserMethodArgumentResolver"/>
+       </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+    <mvc:resources location="/theme/" mapping="/theme/**"/>
+    
+    <context:component-scan base-package="com.wzbuaa.crm.controller,com.wzbuaa.crm.exception.web" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+				<property name="cacheSeconds" value="0" />
+			</bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean id="openSessionInViewInterceptor" class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor">
+				<property name="entityManagerFactory" ref="entityManagerFactory" />
+			</bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<mvc:exclude-mapping path="/admin/common/**"/>
+			<bean id="validationInterceptor" class="framework.interceptor.ValidationInterceptor">
+			</bean>
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/admin/common/**"/>
+			<bean id="errorInterceptor" class="framework.interceptor.ErrorInterceptor">
+			</bean>
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/base/plugin/getPluginInstallHtml**" />
+			<bean id="freeMarkerPaserInterceptor" class="com.wzbuaa.crm.interceptor.FreeMarkerPaserInterceptor">
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="contentType" value="text/html; charset=UTF-8" />
+		<property name="suffix" value="${template.suffix}" />
+		<property name="attributesMap" ref="freemarkerStaticModels"/>
+	</bean>
+	<!-- Bean解析器,级别高于默认解析器,寻找bean对象进行二次处理 -->
+    <bean id="beanNameViewResolver"
+          class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0">
+    </bean>
+	<!-- Excel 处理 根据用户输入进行对象处理 -->
+    <bean id="jeecgTemplateExcelView" class="org.jeecgframework.poi.excel.view.JeecgTemplateExcelView"/>
+    <!-- Excel 处理 根据模板进行对象处理 -->
+    <bean id="jeecgExcelView" class="org.jeecgframework.poi.excel.view.JeecgSingleExcelView"/>
+    <!-- word 处理 根据模板进行对象处理 -->
+    <bean id="jeecgTemplateWordView" class="org.jeecgframework.poi.excel.view.JeecgTemplateWordView"/>
+    
+	<!-- JSR-303验证框架的支持 -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+	
+    <bean id="mappingJacksonHttpMessageConverter"
+    	class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	    <property name="supportedMediaTypes">
+	        <list>
+	            <value>text/html;charset=UTF-8</value>
+	        </list>
+	    </property>
+    </bean>
+    
+    <bean class="com.wzbuaa.crm.exception.web.DefaultExceptionHandler"/>
+    <bean class="com.wzbuaa.crm.exception.web.UnauthorizedExceptionHandler"/>
+</beans>

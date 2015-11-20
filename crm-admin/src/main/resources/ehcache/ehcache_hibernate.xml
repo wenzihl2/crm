@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache name="hibernate">
+	<diskStore path="java.io.tmpdir/${system.project_name}/cache" />
+    <defaultCache
+            maxEntriesLocalHeap="1000"
+            eternal="false"
+            timeToIdleSeconds="3600"
+            timeToLiveSeconds="3600"
+            overflowToDisk="false">
+    </defaultCache>
+
+	<cache name="com.wzbuaa.crm.domain.base.DictionaryDomain"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+
+    <cache name="com.wzbuaa.crm.domain.sso.user.S_userDomain"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    
+    <cache name="com.wzbuaa.crm.domain.sso.Role"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    
+     <cache name="com.wzbuaa.crm.domain.sso.user.JobDomain"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    
+    <cache name="com.wzbuaa.crm.domain.sso.DeptDomain"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    
+    <cache name="com.wzbuaa.crm.domain.base.PluginBundleDomain"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    
+    
+    <cache name="com.wzbuaa.crm.domain.base.PluginBundleDomain.plugins"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    
+    <cache name="com.wzbuaa.crm.domain.base.IconDomain"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    
+    <cache name="com.wzbuaa.crm.domain.base.TableDomain"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    
+    <cache name="com.wzbuaa.crm.domain.base.TableDomain.fields"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    
+    <cache name="com.wzbuaa.crm.domain.sso.user.UserLastOnline"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache> 
+    
+    <cache name="com.wzbuaa.crm.domain.sso.user.UserOnline"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    
+    <cache name="com.wzbuaa.crm.domain.sso.user.UserOrganizationJob"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="false">
+    </cache>
+    <cache
+        name="org.hibernate.cache.internal.StandardQueryCache"
+        maxEntriesLocalHeap="5000"
+        eternal="false"
+        timeToLiveSeconds="3600"
+        overflowToDisk="false"/>
+
+    <cache
+        name="org.hibernate.cache.spi.UpdateTimestampsCache"
+        maxEntriesLocalHeap="5000"
+        eternal="true"
+        overflowToDisk="true"/>
+</ehcache>
